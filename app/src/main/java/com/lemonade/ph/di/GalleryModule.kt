@@ -9,7 +9,7 @@ import dagger.hilt.android.components.ActivityComponent
 
 @Module
 @InstallIn(ActivityComponent::class)
-abstract class GalleryBindings {
+abstract class GalleryModule {
     @Binds
     abstract fun bindGalleryRepo(impl: DefaultGalleryRepository): GalleryRepository
 

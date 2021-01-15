@@ -12,14 +12,11 @@ import kotlinx.coroutines.flow.Flow
 class GalleryViewModel @ViewModelInject constructor(
     private val repository: GalleryRepository
 ) : ViewModel() {
-    private var currentQuery: String? = null
-    private var currentSearchResult: Flow<PagingData<GalleryPhoto>>? = null
-
+    var currentQuery: String? = null
+        private set
 
     fun searchPictures(queryString: String): Flow<PagingData<GalleryPhoto>> {
         currentQuery = queryString
-        return repository.searchPhotos(queryString).cachedIn(viewModelScope).also {
-            currentSearchResult = it
-        }
+        return repository.searchPhotos(queryString).cachedIn(viewModelScope)
     }
 }

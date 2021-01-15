@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lemonade.ph.databinding.RowGalleryPhotoBinding
 import com.lemonade.ph.models.GalleryPhoto
 
-class GalleryAdapter(val clickListener: (GalleryPhoto) -> Unit) :
+class GalleryAdapter(private val clickListener: (GalleryPhoto) -> Unit) :
     PagingDataAdapter<GalleryPhoto, GalleryViewHolder>(GalleryDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
