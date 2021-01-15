@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lemonade.ph.databinding.GalleryFragmentBinding
@@ -24,13 +25,15 @@ import kotlinx.coroutines.launch
 class GalleryFragment : Fragment() {
     private var currentJob: Job? = null
     private val viewModel: GalleryViewModel by viewModels()
-    private val adapter = GalleryAdapter(::moveToNext)
+    private val adapter:GalleryAdapter = GalleryAdapter(::moveToNext)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = GalleryFragmentBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         setupSearchTags(binding)
         setupPhotoGrid(binding)
         search(getInitialItem())
@@ -47,6 +50,9 @@ class GalleryFragment : Fragment() {
     private fun setupPhotoGrid(binding: GalleryFragmentBinding) {
         binding.photoList.layoutManager = GridLayoutManager(context, 2)
         binding.photoList.adapter = adapter
+        adapter.addLoadStateListener{
+            viewModel.onLoadEvent(it.source.refresh)
+        }
     }
 
     private fun search(query: String) {
