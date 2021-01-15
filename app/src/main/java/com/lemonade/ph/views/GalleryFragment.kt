@@ -67,7 +67,7 @@ class GalleryFragment : Fragment() {
     private fun getInitialItem() = viewModel.currentQuery ?: DEFAULT_TAGS[INITIAL_TAG_POSITION]
 
     companion object {
-        val DEFAULT_TAGS = listOf("All", "Beach", "Pets", "Mounatains", "Valley", "Sports")
+        val DEFAULT_TAGS = listOf("All", "Beach", "Pets", "Mountains", "Valley", "Sports")
         const val INITIAL_TAG_POSITION = 0
     }
 }
